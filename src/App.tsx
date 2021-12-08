@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Button} from './Counter/Button';
+import {Tablo} from './Counter/Tablo';
+import styled from 'styled-components';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const minValue = 0
+    const maxValue = 5
+    let [value, setValue] = useState<number>(minValue)
+
+
+    const inc = () => setValue(value + 1)
+
+    const reset = () => setValue(minValue)
+
+
+    return (
+        <AppStyle>
+            <Tablo value={value}/>
+            <Button value={value} inc={inc} reset={reset} maxValue={maxValue} minValue={minValue}/>
+        </AppStyle>
+    );
 }
 
 export default App;
+
+const AppStyle = styled.div`
+  background-color: #282c34;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 200px;
+  width: 200px;
+  border: 2px solid #61dafb;
+  border-radius: 5px;
+`
