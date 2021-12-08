@@ -32,7 +32,7 @@ const ButtonsStyle = styled.div`
 `
 
 const ButtonStyle = styled.button`
-  background-color: yellow;
+  background-color: #61dafb;
   border-radius: 2px;
   margin: 15px 7px 7px 7px;
   width: 70px;
