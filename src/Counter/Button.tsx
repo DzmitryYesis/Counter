@@ -3,25 +3,25 @@ import styled from 'styled-components';
 
 type CounterPropsType = {
     value: number
-    inc:()=>void
-    reset:()=>void
-    maxValue:number
-    minValue:number
+    inc: () => void
+    reset: () => void
+    maxValue: number
+    minValue: number
 }
 
-export const Button = ({value, inc,reset,maxValue, minValue, ...props}: CounterPropsType) => {
+export const Button = ({value, inc, reset, maxValue, minValue, ...props}: CounterPropsType) => {
 
     return (
-        <ButtonsStyle>
-            <ButtonStyle disabled={value === maxValue} onClick={inc}>inc</ButtonStyle>
-            <ButtonStyle disabled={value === minValue} onClick={reset}>reset</ButtonStyle>
-        </ButtonsStyle>
+        <ButtonsCounterStyle>
+            <ButtonCounterStyle disabled={value === maxValue} onClick={inc}>inc</ButtonCounterStyle>
+            <ButtonCounterStyle disabled={value === minValue} onClick={reset}>reset</ButtonCounterStyle>
+        </ButtonsCounterStyle>
 
     )
 
 }
 
-const ButtonsStyle = styled.div`
+const ButtonsCounterStyle = styled.div`
   display: inline-block;
   background-color: #282c34;
   width: 170px;
@@ -30,8 +30,7 @@ const ButtonsStyle = styled.div`
   border: 2px solid #61dafb;
   border-radius: 5px;
 `
-
-const ButtonStyle = styled.button`
+const ButtonCounterStyle = styled.button`
   background-color: #61dafb;
   border-radius: 2px;
   margin: 15px 7px 7px 7px;
