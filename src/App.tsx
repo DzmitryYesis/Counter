@@ -1,38 +1,60 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {Button} from './Counter/Button';
 import {Tablo} from './Counter/Tablo';
 import styled from 'styled-components';
 
 function App() {
-    let [minValue, setMinValue] = useState<number>(0)
+    let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
-    let [value, setValue] = useState<number>(minValue)
+    let [value, setValue] = useState<number>(startValue)
 
+    useEffect(() => {
+        let finish = localStorage.getItem('maxValue')
+        if (finish) {
+            setMaxValue(JSON.parse(finish))
+        }
+        let start = localStorage.getItem('startValue')
+        if (start) {
+            setStartValue(JSON.parse(start))
+            setValue(JSON.parse(start))
+        }
+    }, [])
+
+    // useEffect(() => {
+    //     setValue(JSON.parse(localStorage.getItem('startValue')))
+    // }, [])
 
     const inc = () => setValue(value + 1)
 
-    const reset = () => setValue(minValue)
+    const reset = () => setValue(startValue)
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setMinValue(+e.currentTarget.value)
+        setStartValue(+e.currentTarget.value)
+        localStorage.setItem('startValue', e.currentTarget.value)
     }
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(+e.currentTarget.value)
+        localStorage.setItem('maxValue', e.currentTarget.value)
     }
-    const confirmValue = () => setValue(minValue)
-
+    const confirmValue = () => {
+        setValue(startValue)
+    }
+//засунуть в сет функции локал сторадж сет итем
 
     return (
         <AppStyle>
             <SettingStyle>
-                <input type={'number'} value={minValue} onChange={changeMinValue}/>
-                <input type={'number'} value={maxValue} onChange={changeMaxValue}/>
+                <div>
+                    minValue <InputSetStyle type={'number'} value={startValue} onChange={changeMinValue}/>
+                </div>
+                <div>
+                    maxValue <InputSetStyle type={'number'} value={maxValue} onChange={changeMaxValue}/></div>
                 <button onClick={confirmValue}>set</button>
             </SettingStyle>
             <CounterStyle>
                 <Tablo value={value}/>
-                <Button value={value} inc={inc} reset={reset} maxValue={maxValue} minValue={minValue}/>
+                <Button value={value} inc={inc} reset={reset} maxValue={maxValue} minValue={startValue}/>
             </CounterStyle>
         </AppStyle>
     );
@@ -61,4 +83,12 @@ const AppStyle = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-top: 200px;
+`
+
+const InputSetStyle = styled.input`
+  background-color: #61dafb;
+  color: black;
+  width: 50px;
+  text-align: center;
+  font-size: 15px;
 `
