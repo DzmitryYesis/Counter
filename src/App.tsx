@@ -21,9 +21,6 @@ function App() {
         }
     }, [])
 
-    // useEffect(() => {
-    //     setValue(JSON.parse(localStorage.getItem('startValue')))
-    // }, [])
 
     const inc = () => setValue(value + 1)
 
@@ -31,16 +28,15 @@ function App() {
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(+e.currentTarget.value)
-        localStorage.setItem('startValue', e.currentTarget.value)
     }
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(+e.currentTarget.value)
-        localStorage.setItem('maxValue', e.currentTarget.value)
     }
     const confirmValue = () => {
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
         setValue(startValue)
     }
-//засунуть в сет функции локал сторадж сет итем
 
     return (
         <AppStyle>
