@@ -7,7 +7,7 @@ import styled from 'styled-components';
 function App() {
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
-    let [value, setValue] = useState<number>(startValue)
+    let [value, setValue] = useState<number>(0)
 
     useEffect(() => {
         let finish = localStorage.getItem('maxValue')
@@ -21,7 +21,7 @@ function App() {
         }
     }, [])
 
-
+// пока не засетаешь новые значения, счетчик работает со старыми
     const inc = () => setValue(value + 1)
 
     const reset = () => setValue(startValue)
@@ -38,6 +38,11 @@ function App() {
         setValue(startValue)
     }
 
+    let checkValue = JSON.stringify(value)
+    if (startValue===maxValue||startValue>maxValue) {
+        checkValue = 'ERROR'
+    }
+
     return (
         <AppStyle>
             <SettingStyle>
@@ -50,12 +55,12 @@ function App() {
                     </LineSetStyle>
                 </AddValueStyle>
                 <ButtonsCounterStyle>
-                    <ButtonCounterStyle onClick={confirmValue}>set</ButtonCounterStyle>
+                    <ButtonCounterStyle disabled={startValue===maxValue||startValue>maxValue} onClick={confirmValue}>set</ButtonCounterStyle>
                 </ButtonsCounterStyle>
             </SettingStyle>
             <CounterStyle>
-                <Tablo value={value}/>
-                <Button value={value} inc={inc} reset={reset} maxValue={maxValue} minValue={startValue}/>
+                <Tablo value={checkValue}/>
+                <Button value={checkValue} inc={inc} reset={reset} maxValue={maxValue} startValue={startValue}/>
             </CounterStyle>
         </AppStyle>
     );

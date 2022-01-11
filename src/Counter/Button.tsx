@@ -2,19 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 type CounterPropsType = {
-    value: number
+    value: string
     inc: () => void
     reset: () => void
     maxValue: number
-    minValue: number
+    startValue: number
 }
 
-export const Button = ({value, inc, reset, maxValue, minValue, ...props}: CounterPropsType) => {
+export const Button = ({value, inc, reset, maxValue, startValue, ...props}: CounterPropsType) => {
 
     return (
         <ButtonsCounterStyle>
-            <ButtonCounterStyle disabled={value === maxValue} onClick={inc}>inc</ButtonCounterStyle>
-            <ButtonCounterStyle disabled={value === minValue} onClick={reset}>reset</ButtonCounterStyle>
+            <ButtonCounterStyle disabled={+value === maxValue} onClick={inc}>inc</ButtonCounterStyle>
+            <ButtonCounterStyle disabled={+value === startValue} onClick={reset}>reset</ButtonCounterStyle>
         </ButtonsCounterStyle>
 
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 type TabloPropsType = {
-    value: number
+    value: string | number
 }
 
 export const Tablo = ({value, ...props}: TabloPropsType) => {
