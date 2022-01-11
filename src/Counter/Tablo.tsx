@@ -16,15 +16,15 @@ export const Tablo = ({value, ...props}: TabloPropsType) => {
 }
 
 const InputStyle = styled.input`
-  background-color: #61dafb;
-  color: black;
+  background-color: #282c34;
+  color: #61dafb;
   max-width: 165px;
   min-width: 165px;
-  max-height: 50px;
-  min-height: 50px;
+  max-height: 65px;
+  min-height: 65px;
   font-size: 35px;
   margin: 12px;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid #61dafb;
   border-radius: 5px;
 `

@@ -21,18 +21,20 @@ export const Button = ({value, inc, reset, maxValue, minValue, ...props}: Counte
 
 }
 
-const ButtonsCounterStyle = styled.div`
-  display: inline-block;
+export const ButtonsCounterStyle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   background-color: #282c34;
   width: 170px;
-  height: 50px;
+  height: 35px;
   margin: 0px 12px 12px 12px;
   border: 2px solid #61dafb;
   border-radius: 5px;
 `
-const ButtonCounterStyle = styled.button`
+export const ButtonCounterStyle = styled.button`
   background-color: #61dafb;
   border-radius: 2px;
-  margin: 15px 7px 7px 7px;
+  margin: 7px 7px 7px 7px;
   width: 70px;
 `

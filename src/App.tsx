@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
-import {Button} from './Counter/Button';
+import {Button, ButtonCounterStyle, ButtonsCounterStyle} from './Counter/Button';
 import {Tablo} from './Counter/Tablo';
 import styled from 'styled-components';
 
@@ -41,12 +41,17 @@ function App() {
     return (
         <AppStyle>
             <SettingStyle>
-                <div>
-                    minValue <InputSetStyle type={'number'} value={startValue} onChange={changeMinValue}/>
-                </div>
-                <div>
-                    maxValue <InputSetStyle type={'number'} value={maxValue} onChange={changeMaxValue}/></div>
-                <button onClick={confirmValue}>set</button>
+                <AddValueStyle>
+                    <LineSetStyle>
+                        startValue: <InputSetStyle type={'number'} value={startValue} onChange={changeMinValue}/>
+                    </LineSetStyle>
+                    <LineSetStyle>
+                        maxValue: <InputSetStyle type={'number'} value={maxValue} onChange={changeMaxValue}/>
+                    </LineSetStyle>
+                </AddValueStyle>
+                <ButtonsCounterStyle>
+                    <ButtonCounterStyle onClick={confirmValue}>set</ButtonCounterStyle>
+                </ButtonsCounterStyle>
             </SettingStyle>
             <CounterStyle>
                 <Tablo value={value}/>
@@ -59,6 +64,9 @@ function App() {
 export default App;
 
 const CounterStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #282c34;
   border: 2px solid #61dafb;
   border-radius: 5px;
@@ -67,6 +75,9 @@ const CounterStyle = styled.div`
 `
 
 const SettingStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #282c34;
   border: 2px solid #61dafb;
   border-radius: 5px;
@@ -87,4 +98,25 @@ const InputSetStyle = styled.input`
   width: 50px;
   text-align: center;
   font-size: 15px;
+`
+const AddValueStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #282c34;
+  color: #61dafb;
+  max-width: 170px;
+  min-width: 170px;
+  max-height: 65px;
+  min-height: 65px;
+  margin: 12px;
+  border: 2px solid #61dafb;
+  border-radius: 5px;
+`
+
+const LineSetStyle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 3px;
 `
