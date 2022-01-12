@@ -24,7 +24,7 @@ function App() {
 // пока не засетаешь новые значения, счетчик работает со старыми
     const inc = () => setValue(value + 1)
 
-    const reset = () => setValue(startValue)
+    const reset = () => setValue(Number(localStorage.getItem('startValue')))
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(+e.currentTarget.value)
@@ -35,7 +35,7 @@ function App() {
     const confirmValue = () => {
         localStorage.setItem('startValue', JSON.stringify(startValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
-        setValue(startValue)
+        //setValue(startValue)
     }
 
     let checkValue = JSON.stringify(value)
