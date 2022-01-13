@@ -5,9 +5,38 @@ import {Tablo} from './Counter/Tablo';
 import styled from 'styled-components';
 
 function App() {
+    let [addStartValue, setAddStartValue]= useState<number>(0)
+    let [addMaxValue, setAddMaxValue]= useState<number>(2)
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
-    let [value, setValue] = useState<number>(0)
+    let [value, setValue] = useState<number>(startValue)
+
+
+
+
+// one more new useState
+    const inc = () => setValue(value + 1)
+
+    const reset = () => setValue(startValue)
+
+    const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setAddStartValue(+e.currentTarget.value)
+    }
+    const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setAddMaxValue(+e.currentTarget.value)
+    }
+    const confirmValue = () => {
+        localStorage.setItem('startValue', JSON.stringify(addStartValue))
+        localStorage.setItem('maxValue', JSON.stringify(addMaxValue))
+        setStartValue(addStartValue)
+        setMaxValue(addMaxValue)
+        setValue(addStartValue)
+    }
+
+    let checkValue = JSON.stringify(value)
+    if (addStartValue===addMaxValue||addStartValue>addMaxValue) {
+        checkValue = 'ERROR'
+    }
 
     useEffect(() => {
         let finish = localStorage.getItem('maxValue')
@@ -21,52 +50,31 @@ function App() {
         }
     }, [])
 
-// пока не засетаешь новые значения, счетчик работает со старыми
-    const inc = () => setValue(value + 1)
-
-    const reset = () => setValue(Number(localStorage.getItem('startValue')))
-
-    const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(+e.currentTarget.value)
-    }
-    const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(+e.currentTarget.value)
-    }
-    const confirmValue = () => {
-        localStorage.setItem('startValue', JSON.stringify(startValue))
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-        //setValue(startValue)
-    }
-
-    let checkValue = JSON.stringify(value)
-    if (startValue===maxValue||startValue>maxValue) {
-        checkValue = 'ERROR'
-    }
-
     return (
         <AppStyle>
             <SettingStyle>
                 <AddValueStyle>
                     <LineSetStyle>
-                        startValue: <InputSetStyle type={'number'} value={startValue} onChange={changeMinValue}/>
+                        startValue: <InputSetStyle type={'number'} value={addStartValue} onChange={changeMinValue}/>
                     </LineSetStyle>
                     <LineSetStyle>
-                        maxValue: <InputSetStyle type={'number'} value={maxValue} onChange={changeMaxValue}/>
+                        maxValue: <InputSetStyle type={'number'} value={addMaxValue} onChange={changeMaxValue}/>
                     </LineSetStyle>
                 </AddValueStyle>
                 <ButtonsCounterStyle>
-                    <ButtonCounterStyle disabled={startValue===maxValue||startValue>maxValue} onClick={confirmValue}>set</ButtonCounterStyle>
+                    <ButtonCounterStyle disabled={addStartValue===addMaxValue||addStartValue>addMaxValue} onClick={confirmValue}>set</ButtonCounterStyle>
                 </ButtonsCounterStyle>
             </SettingStyle>
             <CounterStyle>
                 <Tablo value={checkValue}/>
-                <Button value={checkValue} inc={inc} reset={reset} maxValue={maxValue} startValue={startValue}/>
+                <Button value={checkValue} inc={inc} reset={reset} maxValue={maxValue} startValue={startValue} addStartValue={addStartValue} addMaxValue={addMaxValue}/>
             </CounterStyle>
         </AppStyle>
     );
 }
 
-export default App;
+export default App
+
 
 const CounterStyle = styled.div`
   display: flex;

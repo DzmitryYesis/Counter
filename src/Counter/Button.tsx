@@ -7,14 +7,16 @@ type CounterPropsType = {
     reset: () => void
     maxValue: number
     startValue: number
+    addStartValue: number
+    addMaxValue: number
 }
 
-export const Button = ({value, inc, reset, maxValue, startValue, ...props}: CounterPropsType) => {
+export const Button = ({value, inc, reset, maxValue, startValue, addStartValue, addMaxValue, ...props}: CounterPropsType) => {
 
     return (
         <ButtonsCounterStyle>
-            <ButtonCounterStyle disabled={+value === maxValue} onClick={inc}>inc</ButtonCounterStyle>
-            <ButtonCounterStyle disabled={+value === startValue} onClick={reset}>reset</ButtonCounterStyle>
+            <ButtonCounterStyle disabled={+value === maxValue||addMaxValue===addStartValue} onClick={inc}>inc</ButtonCounterStyle>
+            <ButtonCounterStyle disabled={+value === startValue||addMaxValue===addStartValue} onClick={reset}>reset</ButtonCounterStyle>
         </ButtonsCounterStyle>
 
     )
